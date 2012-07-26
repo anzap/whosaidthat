@@ -379,6 +379,5 @@ $app_name = idx($app_info, 'name', '');
       </ul>
     </section>
 
-	<?php phpinfo(); ?>
   </body>
 </html>
