@@ -10,13 +10,16 @@
 
 // Provides access to app specific values such as your app id and app secret.
 // Defined in 'AppInfo.php'
+
 require_once('AppInfo.php');
+
 
 // Enforce https on production
 if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
   header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
   exit();
 }
+
 
 // This provides access to helper functions defined in 'utils.php'
 require_once('utils.php');
@@ -37,6 +40,7 @@ $facebook = new Facebook(array(
   'appId'  => AppInfo::appID(),
   'secret' => AppInfo::appSecret(),
 ));
+
 
 $user_id = $facebook->getUser();
 if ($user_id) {
@@ -104,7 +108,8 @@ $app_name = idx($app_info, 'name', '');
     <meta property="og:description" content="My first app" />
     <meta property="fb:app_id" content="<?php echo AppInfo::appID(); ?>" />
 
-    <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
 
     <script type="text/javascript">
       function logResponse(response) {
