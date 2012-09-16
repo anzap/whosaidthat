@@ -47,5 +47,9 @@ class AppInfo {
 
     return $protocol . $_SERVER['HTTP_HOST'] . $path;
   }
+  
+  public static function getHost() {
+      return $_SERVER['HTTP_HOST'];
+  }
 
 }
