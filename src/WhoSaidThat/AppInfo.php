@@ -52,4 +52,29 @@ class AppInfo {
       return $_SERVER['HTTP_HOST'];
   }
 
+  public static function getDatabaseUrl() {
+    return parse_url(getEnv('DATABASE_URL'));
+  }
+
+  public static function getDbHost() {
+    extract(AppInfo::getDatabaseUrl());
+    return $host;
+  }
+
+  public static function getDbName() {
+    extract(AppInfo::getDatabaseUrl());
+    return substr($path, 1);
+  }
+
+  public static function getDbUser() {
+    extract(AppInfo::getDatabaseUrl());
+    return $user;
+  }
+
+  public static function getDbPass() {
+    extract(AppInfo::getDatabaseUrl());
+    return $pass;
+  }
+  
+
 }

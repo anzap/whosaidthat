@@ -1,5 +1,5 @@
 {
-    "hash": "90d013772598125f348308f3466202b4",
+    "hash": "4a4626d9bdea1df866b8062716791e35",
     "packages": [
         {
             "name": "facebook/php-sdk",
@@ -61,7 +61,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "1347278988",
+            "time": "2012-09-10 20:09:48",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -96,12 +96,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Silex.git",
-                "reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b"
+                "reference": "810fcb19c74317289d06b531641cf5dd33f7bf6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Silex/zipball/97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
-                "reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
+                "url": "https://github.com/fabpot/Silex/zipball/810fcb19c74317289d06b531641cf5dd33f7bf6f",
+                "reference": "810fcb19c74317289d06b531641cf5dd33f7bf6f",
                 "shasum": ""
             },
             "require": {
@@ -128,18 +128,18 @@
                 "symfony/locale": "2.1.*",
                 "twig/twig": ">=1.8.0,<2.0-dev",
                 "swiftmailer/swiftmailer": "4.2.*",
-                "doctrine/dbal": "2.2.*"
+                "doctrine/dbal": ">=2.2.0,<2.4.0-dev"
             },
             "suggest": {
                 "symfony/browser-kit": "2.1.*",
                 "symfony/css-selector": "2.1.*",
                 "symfony/dom-crawler": "2.1.*"
             },
-            "time": "1347738639",
+            "time": "1348836914",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "installation-source": "source",
@@ -175,12 +175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher",
-                "reference": "v2.1.1"
+                "reference": "v2.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/EventDispatcher/zipball/v2.1.1",
-                "reference": "v2.1.1",
+                "url": "https://github.com/symfony/EventDispatcher/zipball/v2.1.2",
+                "reference": "v2.1.2",
                 "shasum": ""
             },
             "require": {
@@ -229,18 +229,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "v2.1.1"
+                "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/zipball/v2.1.1",
-                "reference": "v2.1.1",
+                "url": "https://github.com/symfony/HttpFoundation/zipball/c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
+                "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1346761482",
+            "time": "1348937790",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -251,7 +251,7 @@
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\HttpFoundation": "",
-                    "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
+                    "SessionHandlerInterface": "Resources/stubs"
                 }
             },
             "license": [
@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel",
-                "reference": "584499e64026f41c4be938ed35d8f0a9a9eebd38"
+                "reference": "404dce298803bb617ac24967ba07a3cc8e38bef3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpKernel/zipball/584499e64026f41c4be938ed35d8f0a9a9eebd38",
-                "reference": "584499e64026f41c4be938ed35d8f0a9a9eebd38",
+                "url": "https://github.com/symfony/HttpKernel/zipball/404dce298803bb617ac24967ba07a3cc8e38bef3",
+                "reference": "404dce298803bb617ac24967ba07a3cc8e38bef3",
                 "shasum": ""
             },
             "require": {
@@ -308,7 +308,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/finder": "2.1.*"
             },
-            "time": "1347354770",
+            "time": "1348853105",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -344,12 +344,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing",
-                "reference": "v2.1.1"
+                "reference": "v2.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Routing/zipball/v2.1.1",
-                "reference": "v2.1.1",
+                "url": "https://github.com/symfony/Routing/zipball/v2.1.2",
+                "reference": "v2.1.2",
                 "shasum": ""
             },
             "require": {
@@ -401,18 +401,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "c38e06ff4134820f5acca2b5b0a163251b053d89"
+                "reference": "120cde3fa54c31047edf1cd003752ca119dec9a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/c38e06ff4134820f5acca2b5b0a163251b053d89",
-                "reference": "c38e06ff4134820f5acca2b5b0a163251b053d89",
+                "url": "https://github.com/fabpot/Twig/zipball/120cde3fa54c31047edf1cd003752ca119dec9a8",
+                "reference": "120cde3fa54c31047edf1cd003752ca119dec9a8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1347806324",
+            "time": "1348936415",
             "type": "library",
             "extra": {
                 "branch-alias": {

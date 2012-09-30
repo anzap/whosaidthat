@@ -35,7 +35,13 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
     <div>
+      {% if basic %}
+        <div>
+          <h1>Welcome, <strong>{{ utils.idx(basic, 'name') }}</strong></h1>
+        </div>
+      {% else %}
         <h1>Welcome</h1>
-        <div class="fb-login-button" data-scope="user_likes,user_photos"></div>
+        <div class="fb-login-button" data-scope="read_stream"></div>
+      {% endif %}
     </div>
 {% endblock %}

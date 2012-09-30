@@ -1,5 +1,48 @@
 [
     {
+        "name": "facebook/php-sdk",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git://github.com/facebook/facebook-php-sdk.git",
+            "reference": "v3.2.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://github.com/facebook/facebook-php-sdk/zipball/v3.2.0",
+            "reference": "v3.2.0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0",
+            "ext-curl": "*",
+            "ext-json": "*"
+        },
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "license": [
+            "Apache2"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            }
+        ],
+        "description": "Facebook PHP SDK",
+        "homepage": "https://github.com/facebook/facebook-php-sdk",
+        "keywords": [
+            "facebook",
+            "sdk"
+        ]
+    },
+    {
         "name": "pimple/pimple",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -54,12 +97,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Routing",
-            "reference": "v2.1.1"
+            "reference": "v2.1.2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/symfony/Routing/zipball/v2.1.1",
-            "reference": "v2.1.1",
+            "url": "https://github.com/symfony/Routing/zipball/v2.1.2",
+            "reference": "v2.1.2",
             "shasum": ""
         },
         "require": {
@@ -76,7 +119,6 @@
             "symfony/config": "2.1.*",
             "symfony/yaml": "2.1.*"
         },
-        "time": "2012-09-10 18:53:42",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -113,18 +155,17 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/HttpFoundation",
-            "reference": "v2.1.1"
+            "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/symfony/HttpFoundation/zipball/v2.1.1",
-            "reference": "v2.1.1",
+            "url": "https://github.com/symfony/HttpFoundation/zipball/c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
+            "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "time": "2012-09-04 20:24:42",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -135,7 +176,7 @@
         "autoload": {
             "psr-0": {
                 "Symfony\\Component\\HttpFoundation": "",
-                "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
+                "SessionHandlerInterface": "Resources/stubs"
             }
         },
         "license": [
@@ -162,12 +203,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/EventDispatcher",
-            "reference": "v2.1.1"
+            "reference": "v2.1.2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/symfony/EventDispatcher/zipball/v2.1.1",
-            "reference": "v2.1.1",
+            "url": "https://github.com/symfony/EventDispatcher/zipball/v2.1.2",
+            "reference": "v2.1.2",
             "shasum": ""
         },
         "require": {
@@ -180,7 +221,6 @@
             "symfony/dependency-injection": "2.1.*",
             "symfony/http-kernel": "2.1.*"
         },
-        "time": "2012-09-10 18:53:42",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -217,12 +257,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/HttpKernel",
-            "reference": "584499e64026f41c4be938ed35d8f0a9a9eebd38"
+            "reference": "404dce298803bb617ac24967ba07a3cc8e38bef3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/symfony/HttpKernel/zipball/584499e64026f41c4be938ed35d8f0a9a9eebd38",
-            "reference": "584499e64026f41c4be938ed35d8f0a9a9eebd38",
+            "url": "https://github.com/symfony/HttpKernel/zipball/404dce298803bb617ac24967ba07a3cc8e38bef3",
+            "reference": "404dce298803bb617ac24967ba07a3cc8e38bef3",
             "shasum": ""
         },
         "require": {
@@ -248,7 +288,6 @@
             "symfony/dependency-injection": "2.1.*",
             "symfony/finder": "2.1.*"
         },
-        "time": "2012-09-11 17:12:50",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -284,12 +323,12 @@
         "source": {
             "type": "git",
             "url": "git://github.com/fabpot/Silex.git",
-            "reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b"
+            "reference": "810fcb19c74317289d06b531641cf5dd33f7bf6f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/fabpot/Silex/zipball/97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
-            "reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
+            "url": "https://github.com/fabpot/Silex/zipball/810fcb19c74317289d06b531641cf5dd33f7bf6f",
+            "reference": "810fcb19c74317289d06b531641cf5dd33f7bf6f",
             "shasum": ""
         },
         "require": {
@@ -316,18 +355,17 @@
             "symfony/locale": "2.1.*",
             "twig/twig": ">=1.8.0,<2.0-dev",
             "swiftmailer/swiftmailer": "4.2.*",
-            "doctrine/dbal": "2.2.*"
+            "doctrine/dbal": ">=2.2.0,<2.4.0-dev"
         },
         "suggest": {
             "symfony/browser-kit": "2.1.*",
             "symfony/css-selector": "2.1.*",
             "symfony/dom-crawler": "2.1.*"
         },
-        "time": "2012-09-16 03:50:39",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.0-dev"
+                "dev-master": "1.0.x-dev"
             }
         },
         "installation-source": "source",
@@ -363,18 +401,17 @@
         "source": {
             "type": "git",
             "url": "git://github.com/fabpot/Twig.git",
-            "reference": "c38e06ff4134820f5acca2b5b0a163251b053d89"
+            "reference": "120cde3fa54c31047edf1cd003752ca119dec9a8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/fabpot/Twig/zipball/c38e06ff4134820f5acca2b5b0a163251b053d89",
-            "reference": "c38e06ff4134820f5acca2b5b0a163251b053d89",
+            "url": "https://github.com/fabpot/Twig/zipball/120cde3fa54c31047edf1cd003752ca119dec9a8",
+            "reference": "120cde3fa54c31047edf1cd003752ca119dec9a8",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2012-09-16 18:38:44",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -404,50 +441,6 @@
         "homepage": "http://twig.sensiolabs.org",
         "keywords": [
             "templating"
-        ]
-    },
-    {
-        "name": "facebook/php-sdk",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "git://github.com/facebook/facebook-php-sdk.git",
-            "reference": "v3.2.0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://github.com/facebook/facebook-php-sdk/zipball/v3.2.0",
-            "reference": "v3.2.0",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2.0",
-            "ext-curl": "*",
-            "ext-json": "*"
-        },
-        "time": "2012-08-14 17:28:20",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "src"
-            ]
-        },
-        "license": [
-            "Apache2"
-        ],
-        "authors": [
-            {
-                "name": "Facebook",
-                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
-            }
-        ],
-        "description": "Facebook PHP SDK",
-        "homepage": "https://github.com/facebook/facebook-php-sdk",
-        "keywords": [
-            "facebook",
-            "sdk"
         ]
     }
 ]
