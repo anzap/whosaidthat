@@ -13,3 +13,9 @@
 [submodule "vendor/facebook/php-sdk"]
 	path = vendor/facebook/php-sdk
 	url = git@github.com:facebook/facebook-php-sdk.git
+[submodule "vendor/pimple/pimple"]
+	path = vendor/pimple/pimple
+	url = git@github.com:fabpot/Pimple.git
+[submodule "vendor/twig/twig"]
+	path = vendor/twig/twig
+	url = git@github.com:fabpot/Twig.git
