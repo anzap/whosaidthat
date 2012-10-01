@@ -19,3 +19,6 @@
 [submodule "vendor/twig/twig"]
 	path = vendor/twig/twig
 	url = git@github.com:fabpot/Twig.git
+[submodule "vendor/silex/silex"]
+	path = vendor/silex/silex
+	url = git@github.com:fabpot/Silex.git
