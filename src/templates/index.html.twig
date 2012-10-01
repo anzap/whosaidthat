@@ -36,9 +36,38 @@
     </script>
     <div>
       {% if basic %}
-        <div>
-          <h1>Welcome, <strong>{{ utils.idx(basic, 'name') }}</strong></h1>
-        </div>
+        <header class="clearfix">
+            <p id="picture" style="background-image: url(https://graph.facebook.com/100003531474584/picture?type=normal)"></p>
+          <div>
+            <h1>Welcome, <strong>{{ utils.idx(basic, 'name') }}</strong></h1>
+            <p class="tagline">
+              Correct answers: {{ app.session.get('correct_answers') }}
+            </p>
+          </div>
+        </header>
+
+        <section id="samples" class="clearfix">
+          <h1>
+            {{ question[0]['message'] }}
+          </h1>
+
+          <form method="post" action="/">
+          <div id="answers">
+            <h3>Alternatives</h3>
+            <ul class="friends">
+              {% for alternative in alternatives %}
+                <li>
+                  <button type="submit" name="submit" formmethod="post" formaction="/">
+                    <input type="hidden" name="answer" value="{{ alternative['id'] }}"/>
+                    <img src="https://graph.facebook.com/{{ alternative['id'] }}/picture?type=square" alt="{{ alternative.name }}">
+                    <span>{{ alternative.name }}</span>
+                  </button> 
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          </form>
+        </section>
       {% else %}
         <h1>Welcome</h1>
         <div class="fb-login-button" data-scope="read_stream"></div>

@@ -6,22 +6,26 @@ use WhoSaidThat\DAO;
 use WhoSaidThat\domain\User;
 use WhoSaidThat\domain\Friend;
 use WhoSaidThat\domain\Status;
+use Symfony\Component\HttpFoundation\Request;
 
 $app = new Silex\Application();
 $app['debug'] = true;
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/templates',
 ));
+$app->register(new Silex\Provider\SessionServiceProvider());
 
 $app['pdo.dsn'] = "pgsql:host=".AppInfo::getDbHost().";dbname=".AppInfo::getDbName();
 
 
 $app['pdo'] = $app->share(function () use ($app) {
-    return new PDO(
+    $pdo = new PDO(
         $app['pdo.dsn'],
         AppInfo::getDbUser(),
         AppInfo::getDbPass()
     );
+    //$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $pdo;
 });
 
 $app['dao'] = $app->share(function () use ($app) {
@@ -77,18 +81,36 @@ $app_info = $facebook->api('/' . AppInfo::appID());
 $app_name = Utils::idx($app_info, 'name', '');
 
 
-$app->get('/', function() use ($app, $app_name, $basic) {
+$app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_id) {
+            if(!$app['session']->has('correct_answers')) {
+              $app['session']->set('correct_answers', 0);
+            }
+            if(isset($user_id)) {
+              $question = $app['dao']->getNextQuestion($user_id);
+              $app['session']->set('right_user_id', $question[0]['user_id']);
+              $alternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
+              
+              $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
+              shuffle($alternatives);
+            }
+
+            if ('POST' == $request->getMethod()) {
+              if($request->get('answer')===$app['session']->get('right_user_id')) {
+                $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
+              }
+
+              //save that question was answered
+              //maybe redirect to prevent double post?
+              //load next 50 questions
+            }
+            
             return $app['twig']->render('index.html.twig', 
                 array("app_name" => $app_name, "appInfo" => new AppInfo(), 
-                    "basic" => $basic, "utils" => new Utils()));
+                    "basic" => $basic, "utils" => new Utils(), "question" => $question,
+                    "alternatives" => $alternatives));
         });
 
-$app->error(function (\Exception $e, $code) {
-    return new Response('We are sorry, but something went terribly wrong.');
-});
-
 $app->error(function(\Exception $e, $code) use($app) {
-    echo 'in error handler';
     if ($app['debug']) {
         return;
     }
@@ -96,6 +118,5 @@ $app->error(function(\Exception $e, $code) use($app) {
         return $app->redirect('/');
     }
 });
-
 
 return $app;
