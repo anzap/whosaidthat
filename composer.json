@@ -2,10 +2,10 @@
     "name": "anzap/hollow-warrior-8554",
 	"require": {
 		"silex/silex": "1.0.*",
-                "twig/twig": ">=1.8,<2.0-dev",
-                "facebook/php-sdk": "dev-master"
+        "twig/twig": ">=1.8,<2.0-dev",
+        "facebook/php-sdk": "dev-master"
 	},
-        "autoload": {
+    "autoload": {
 		"psr-0": {"WhoSaidThat": "src/"}
 	},
 	"minimum-stability": "dev"
