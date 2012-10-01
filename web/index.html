@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+
+    <title>Who Said That</title>
+    <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
+
+    <!--[if IEMobile]>
+    <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
+    <![endif]-->
+
+    <!-- These are Open Graph tags.  They add meta data to your  -->
+    <!-- site that facebook uses when your content is shared     -->
+    <!-- over facebook.  You should fill these tags in with      -->
+    <!-- your data.  To learn more about Open Graph, visit       -->
+    <!-- 'https://developers.facebook.com/docs/opengraph/'       -->
+    <meta property="og:title" content="Who Said That" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hollow-warrior-8554.herokuapp.com/" />
+    <meta property="og:image" content="https://hollow-warrior-8554.herokuapp.com/logo.png" />
+    <meta property="og:site_name" content="Who Said That" />
+    <meta property="og:description" content="My first app" />
+    <meta property="fb:app_id" content="322587037834667" />
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+    <!--[if IE]>
+      <script type="text/javascript">
+        var tags = ['header', 'section'];
+        while(tags.length)
+          document.createElement(tags.pop());
+      </script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '322587037834667', // App ID
+          channelUrl : '//hollow-warrior-8554.herokuapp.com/channel.html', // Channel File
+          status     : true, // check login status
+          cookie     : true, // enable cookies to allow the server to access the session
+          xfbml      : true // parse XFBML
+        });
+
+        // Listen to the auth.login which will be called when the user logs in
+        // using the Login button
+        FB.Event.subscribe('auth.login', function(response) {
+          // We want to reload the page now so PHP can read the cookie that the
+          // Javascript SDK sat. But we don't want to use
+          // window.location.reload() because if this is in a canvas there was a
+          // post made to this page and a reload will trigger a message to the
+          // user asking if they want to send data again.
+          window.location = window.location;
+        });
+
+        FB.Canvas.setAutoGrow();
+      };
+
+      // Load the SDK Asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <header class="clearfix">
+            <p id="picture" style="background-image: url(https://graph.facebook.com/100003531474584/picture?type=normal)"></p>
+
+      <div>
+        <h1>Welcome, <strong>Anzap Aslan</strong></h1>
+      </div>
+    </header>
+    
+    <section id="samples" class="clearfix">
+      <h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a ante arcu, vitae condimentum augue. Phasellus non adipiscing tellus. Nulla metus enim, sollicitudin ac malesuada non, accumsan ut mauris. Sed ipsum dui, euismod et ullamcorper non, porta tempor purus. Proin congue, purus et eleifend rhoncus, eros sapien eleifend augue, sed elementum tellus turpis eu risus. Vestibulum ut eleifend magna. Vivamus imperdiet nulla et lacus rhoncus ut pellentesque ipsum luctus. Duis vel nisl nisi. Cras sed enim magna.
+
+        Nullam at dui turpis. Morbi risus orci, sagittis id placerat sagittis, varius in odio. Curabitur sit amet metus leo, vitae condimentum nisl. Duis at urna mi. Nulla facilisi. Nam quam magna, imperdiet eu molestie vitae, tristique sit amet sapien. Nulla tincidunt lectus eget risus semper volutpat. Nulla porttitor, justo at laoreet scelerisque, nunc purus egestas sapien, at bibendum odio tortor nec lectus. Nam vulputate, dolor et pharetra volutpat, arcu dolor tempus eros, eget rhoncus tortor quam ullamcorper mauris. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis metus felis, commodo eu congue in, placerat nec magna.
+      </h1>
+
+      <form>
+      <div id="answers">
+        <h3>Alternatives</h3>
+        <ul class="friends">
+          <li>
+            <button type="submit" name="submit" formmethod="post" formaction="/">
+              <img src="https://graph.facebook.com/704435910/picture?type=square" alt="Giannis Revis">
+              <span>Giannis Revis</span>
+            </button> 
+          </li>
+          <li>
+            <button type="submit" name="submit" formmethod="post" formaction="/">
+              <img src="https://graph.facebook.com/100003472374942/picture?type=square" alt="Sophia Athanassakou">
+              <span>Sophia Athanassakou</span>
+            </button>
+          </li>
+          <li>
+            <button type="submit" name="submit" formmethod="post" formaction="/">
+              <img src="https://graph.facebook.com/100003854966578/picture?type=square" alt="Soleil D Hiver">
+              <span>Soleil D Hiver</span>
+            </button> 
+          </li>
+        </ul>
+      </div>
+      </form>
+    </section>
+  </body>
+</html>
