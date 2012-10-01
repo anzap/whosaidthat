@@ -1,5 +1,5 @@
 {
-    "hash": "4a4626d9bdea1df866b8062716791e35",
+    "hash": "724f63b1c24a704e4e296a65464b5fc4",
     "packages": [
         {
             "name": "facebook/php-sdk",
@@ -20,7 +20,6 @@
                 "ext-curl": "*",
                 "ext-json": "*"
             },
-            "time": "1344965300",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -42,7 +41,8 @@
             "keywords": [
                 "facebook",
                 "sdk"
-            ]
+            ],
+            "time": "1344965300"
         },
         {
             "name": "pimple/pimple",
@@ -61,7 +61,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-09-10 20:09:48",
+            "time": "1347278988",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -96,12 +96,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Silex.git",
-                "reference": "810fcb19c74317289d06b531641cf5dd33f7bf6f"
+                "reference": "fc82b4255ef081dd7d464c5320ca93a902f9190f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Silex/zipball/810fcb19c74317289d06b531641cf5dd33f7bf6f",
-                "reference": "810fcb19c74317289d06b531641cf5dd33f7bf6f",
+                "url": "https://github.com/fabpot/Silex/zipball/fc82b4255ef081dd7d464c5320ca93a902f9190f",
+                "reference": "fc82b4255ef081dd7d464c5320ca93a902f9190f",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "symfony/css-selector": "2.1.*",
                 "symfony/dom-crawler": "2.1.*"
             },
-            "time": "1348836914",
+            "time": "1349013590",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -193,7 +193,6 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/http-kernel": "2.1.*"
             },
-            "time": "1347274422",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -220,7 +219,8 @@
                 }
             ],
             "description": "Symfony EventDispatcher Component",
-            "homepage": "http://symfony.com"
+            "homepage": "http://symfony.com",
+            "time": "1347274422"
         },
         {
             "name": "symfony/http-foundation",
@@ -229,18 +229,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c"
+                "reference": "215172a4f9ea97e44692d5c97a448e8a40000f1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/zipball/c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
-                "reference": "c6d48206a04fc2aa75d396bb23f0152f33eaab0c",
+                "url": "https://github.com/symfony/HttpFoundation/zipball/215172a4f9ea97e44692d5c97a448e8a40000f1f",
+                "reference": "215172a4f9ea97e44692d5c97a448e8a40000f1f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1348937790",
+            "time": "1349101810",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -251,7 +251,7 @@
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\HttpFoundation": "",
-                    "SessionHandlerInterface": "Resources/stubs"
+                    "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
                 }
             },
             "license": [
@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel",
-                "reference": "404dce298803bb617ac24967ba07a3cc8e38bef3"
+                "reference": "1859e49f38c705b6241510dc7d577fbae65e7ca6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpKernel/zipball/404dce298803bb617ac24967ba07a3cc8e38bef3",
-                "reference": "404dce298803bb617ac24967ba07a3cc8e38bef3",
+                "url": "https://github.com/symfony/HttpKernel/zipball/1859e49f38c705b6241510dc7d577fbae65e7ca6",
+                "reference": "1859e49f38c705b6241510dc7d577fbae65e7ca6",
                 "shasum": ""
             },
             "require": {
@@ -308,7 +308,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/finder": "2.1.*"
             },
-            "time": "1348853105",
+            "time": "1349083395",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -366,7 +366,6 @@
                 "symfony/config": "2.1.*",
                 "symfony/yaml": "2.1.*"
             },
-            "time": "1347274422",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -393,7 +392,8 @@
                 }
             ],
             "description": "Symfony Routing Component",
-            "homepage": "http://symfony.com"
+            "homepage": "http://symfony.com",
+            "time": "1347274422"
         },
         {
             "name": "twig/twig",
@@ -412,7 +412,6 @@
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1348936415",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -442,7 +441,8 @@
             "homepage": "http://twig.sensiolabs.org",
             "keywords": [
                 "templating"
-            ]
+            ],
+            "time": "1348936415"
         }
     ],
     "packages-dev": null,
