@@ -10,3 +10,6 @@
 [submodule "vendor/symfony/http-kernel/Symfony/Component/HttpKernel"]
 	path = vendor/symfony/http-kernel/Symfony/Component/HttpKernel
 	url = git@github.com:symfony/HttpKernel.git
+[submodule "vendor/facebook/php-sdk"]
+	path = vendor/facebook/php-sdk
+	url = git@github.com:facebook/facebook-php-sdk.git
