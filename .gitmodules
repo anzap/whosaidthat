@@ -1,3 +1,12 @@
 [submodule "vendor/symfony/event-dispatcher/Symfony/Component/EventDispatcher"]
 	path = vendor/symfony/event-dispatcher/Symfony/Component/EventDispatcher
 	url = git@github.com:symfony/EventDispatcher.git
+[submodule "vendor/symfony/routing/Symfony/Component/Routing"]
+	path = vendor/symfony/routing/Symfony/Component/Routing
+	url = git@github.com:symfony/Routing.git
+[submodule "vendor/symfony/http-foundation/Symfony/Component/HttpFoundation"]
+	path = vendor/symfony/http-foundation/Symfony/Component/HttpFoundation
+	url = git@github.com:symfony/HttpFoundation.git
+[submodule "vendor/symfony/http-kernel/Symfony/Component/HttpKernel"]
+	path = vendor/symfony/http-kernel/Symfony/Component/HttpKernel
+	url = git@github.com:symfony/HttpKernel.git
