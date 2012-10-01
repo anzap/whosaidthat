@@ -17,3 +17,11 @@ CREATE TABLE IF NOT EXISTS friends (
 	FOREIGN KEY(user_id) REFERENCES users(id),
 	FOREIGN KEY(friend_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS answers (
+	id serial PRIMARY KEY,
+	user_id varchar(40),
+	status_id varchar(40),
+	FOREIGN KEY(user_id) REFERENCES users(id),
+	FOREIGN KEY(status_id) REFERENCES statuses(id)
+);
