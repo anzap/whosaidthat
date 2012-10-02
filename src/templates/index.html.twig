@@ -59,6 +59,7 @@
                 <li>
                   <button type="submit" name="submit" formmethod="post" formaction="/">
                     <input type="hidden" name="answer" value="{{ alternative['id'] }}"/>
+                    <input type="hidden" name="question" value="{{ question[0][0] }}"/>
                     <img src="https://graph.facebook.com/{{ alternative['id'] }}/picture?type=square" alt="{{ alternative.name }}">
                     <span>{{ alternative.name }}</span>
                   </button> 

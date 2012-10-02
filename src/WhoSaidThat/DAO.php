@@ -14,6 +14,7 @@ class DAO {
 	private $statusStm;
 	private $questionStm;
 	private $alternativesStm;
+	private $answerStm;
 
 	public function __construct(PDO $pdo) {
 		$this->pdo = $pdo;
@@ -26,7 +27,9 @@ class DAO {
 				select status_id from answers where user_id = :user_id
 			) 
 			offset random() * (select count(*) from statuses) limit 1");
-		$this->alternativesStm = $this->pdo->prepare("select * from users where id != :user_id and id != :right_user_id offset random() limit 3");
+		$this->alternativesStm = $this->pdo->prepare("select * from users 
+			where id in (select friend_id from friends where user_id = :user_id) and id != :right_user_id  offset random() limit 3");
+		$this->answerStm = $this->pdo->prepare("INSERT INTO answers (user_id, status_id) VALUES (:user_id, :status_id)");
 	}
 
 	public function createUser(User $user) {
@@ -34,7 +37,7 @@ class DAO {
 		$this->userStm->bindParam(':id', $id);
 		$name = $user->getName();
 		$this->userStm->bindParam(':name', $name);
-		$this->userStm->execute();
+		//$this->userStm->execute();
 	}
 
 	public function createFriend(Friend $friend) {
@@ -42,7 +45,7 @@ class DAO {
 		$this->friendStm->bindParam(':user_id', $user_id);
 		$friend_id = $friend->getFriend()->getId();
 		$this->friendStm->bindParam(':friend_id', $friend_id);
-		$this->friendStm->execute();
+		//$this->friendStm->execute();
 	}
 
 	public function createStatus(Status $status) {
@@ -52,7 +55,7 @@ class DAO {
 		$this->statusStm->bindParam(':user_id', $user_id);
 		$message = $status->getMessage();
 		$this->statusStm->bindParam(':message', $message);
-		$this->statusStm->execute();
+		//$this->statusStm->execute();
 	}
 
 	public function getNextQuestion($user_id) {
@@ -66,6 +69,12 @@ class DAO {
 		$this->alternativesStm->bindParam(':right_user_id', $right_user_id);
 		$this->alternativesStm->execute();
 		return $this->alternativesStm->fetchAll();
+	}
+
+	public function saveAnswer($user_id, $status_id) {
+		$this->answerStm->bindParam(':user_id', $user_id);
+		$this->answerStm->bindParam(':status_id', $status_id);
+		$this->answerStm->execute();
 	}
 	
 }

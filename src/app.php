@@ -24,7 +24,7 @@ $app['pdo'] = $app->share(function () use ($app) {
         AppInfo::getDbUser(),
         AppInfo::getDbPass()
     );
-    //$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 });
 
@@ -87,6 +87,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
             }
             if(isset($user_id)) {
               $question = $app['dao']->getNextQuestion($user_id);
+              print_r($question);
               $app['session']->set('right_user_id', $question[0]['user_id']);
               $alternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
               
@@ -95,9 +96,10 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
             }
 
             if ('POST' == $request->getMethod()) {
-              if($request->get('answer')===$app['session']->get('right_user_id')) {
+              if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
                 $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
               }
+              $app['dao']->saveAnswer($user_id, $request->get('question'));
 
               //save that question was answered
               //maybe redirect to prevent double post?
