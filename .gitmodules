@@ -4,3 +4,30 @@
 [submodule "vendors/silex"]
 	path = vendors/silex
 	url = https://github.com/fabpot/Silex.git
+[submodule "vendors/silex/silex"]
+	path = vendors/silex/silex
+	url = https://github.com/fabpot/Silex.git
+[submodule "vendor/pimple/pimple"]
+	path = vendor/pimple/pimple
+	url = git@github.com:fabpot/Pimple.git
+[submodule "vendors/pimple/pimple"]
+	path = vendors/pimple/pimple
+	url = https://github.com/fabpot/Pimple.git
+[submodule "vendors/symfony/http-kernel/Symfony/Component/HttpKernel"]
+	path = vendors/symfony/http-kernel/Symfony/Component/HttpKernel
+	url = https://github.com/symfony/HttpKernel.git
+[submodule "vendors/symfony/event-dispatcher/Symfony/Component/EventDispatcher"]
+	path = vendors/symfony/event-dispatcher/Symfony/Component/EventDispatcher
+	url = https://github.com/symfony/EventDispatcher.git
+[submodule "vendors/facebook/php-sdk"]
+	path = vendors/facebook/php-sdk
+	url = https://github.com/facebook/facebook-php-sdk.git
+[submodule "vendors/symfony/routing/Symfony/Component/Routing"]
+	path = vendors/symfony/routing/Symfony/Component/Routing
+	url = https://github.com/symfony/Routing.git
+[submodule "vendors/symfony/http-foundation/Symfony/Component/HttpFoundation"]
+	path = vendors/symfony/http-foundation/Symfony/Component/HttpFoundation
+	url = https://github.com/symfony/HttpFoundation.git
+[submodule "vendors/twig/twig"]
+	path = vendors/twig/twig
+	url = https://github.com/fabpot/Twig.git
