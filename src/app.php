@@ -92,7 +92,6 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
               
               $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
 
-              print_r($alternatives);
               shuffle($alternatives);
             }
 
