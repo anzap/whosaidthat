@@ -53,7 +53,7 @@ class AppInfo {
   }
 
   public static function getDatabaseUrl() {
-    return parse_url(getEnv('DATABASE_URL'));
+    return parse_url(getEnv('HEROKU_POSTGRESQL_COPPER_URL'));
   }
 
   public static function getDbHost() {
