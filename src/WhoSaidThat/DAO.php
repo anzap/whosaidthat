@@ -25,8 +25,11 @@ class DAO {
 			inner join users us on (st.user_id=us.id)
 			where st.id NOT IN (
 				select status_id from answers where user_id = :user_id
+			)
+			and st.user_id in (
+				select friend_id from friends where user_id = :user_id
 			) 
-			offset random() * (select count(*) from statuses) limit 1");
+			offset random() * (select count(*)/3 from statuses) limit 1");
 		$this->alternativesStm = $this->pdo->prepare("select * from users 
 			where id in (select friend_id from friends where user_id = :user_id) and id != :right_user_id  offset random() limit 3");
 		$this->answerStm = $this->pdo->prepare("INSERT INTO answers (user_id, status_id) VALUES (:user_id, :status_id)");
@@ -37,7 +40,7 @@ class DAO {
 		$this->userStm->bindParam(':id', $id);
 		$name = $user->getName();
 		$this->userStm->bindParam(':name', $name);
-		//$this->userStm->execute();
+		$this->userStm->execute();
 	}
 
 	public function createFriend(Friend $friend) {
@@ -45,7 +48,7 @@ class DAO {
 		$this->friendStm->bindParam(':user_id', $user_id);
 		$friend_id = $friend->getFriend()->getId();
 		$this->friendStm->bindParam(':friend_id', $friend_id);
-		//$this->friendStm->execute();
+		$this->friendStm->execute();
 	}
 
 	public function createStatus(Status $status) {
@@ -55,7 +58,7 @@ class DAO {
 		$this->statusStm->bindParam(':user_id', $user_id);
 		$message = $status->getMessage();
 		$this->statusStm->bindParam(':message', $message);
-		//$this->statusStm->execute();
+		$this->statusStm->execute();
 	}
 
 	public function getNextQuestion($user_id) {

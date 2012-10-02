@@ -24,7 +24,7 @@ $app['pdo'] = $app->share(function () use ($app) {
         AppInfo::getDbUser(),
         AppInfo::getDbPass()
     );
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 });
 
@@ -91,6 +91,8 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
               $alternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
               
               $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
+
+              print_r($alternatives);
               shuffle($alternatives);
             }
 
@@ -99,10 +101,6 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
                 $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
               }
               $app['dao']->saveAnswer($user_id, $request->get('question'));
-
-              //save that question was answered
-              //maybe redirect to prevent double post?
-              //load next 50 questions
             }
             
             return $app['twig']->render('index.html.twig', 
