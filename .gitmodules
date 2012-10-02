@@ -1,0 +1,3 @@
+[submodule "vendor/symfony/event-dispatcher/Symfony/Component/EventDispatcher"]
+	path = vendor/symfony/event-dispatcher/Symfony/Component/EventDispatcher
+	url = https://github.com/symfony/EventDispatcher.git
