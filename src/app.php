@@ -87,7 +87,6 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
             }
             if(isset($user_id)) {
               $question = $app['dao']->getNextQuestion($user_id);
-              print_r($question);
               $app['session']->set('right_user_id', $question[0]['user_id']);
               $alternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
               
