@@ -87,16 +87,28 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
             }
             if(isset($user_id)) {
               $question = $app['dao']->getNextQuestion($user_id);
-              $app['session']->set('right_user_id', $question[0]['user_id']);
-              $alternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
-              
-              $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
+              $alternatives = array();
 
-              shuffle($alternatives);
+              if($question) {
+                $app['session']->set('right_user_id', $question[0]['user_id']);
+                $daoAlternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
+
+                $randIndex = count($daoAlternatives) > 3 ? 3 : count($daoAlternatives);
+
+                $rand_keys = array_rand($daoAlternatives, $randIndex);
+
+                for($i = $randIndex-1; $i >= 0; $i--) {
+                  $alternatives[] = $daoAlternatives[$rand_keys[$i]];  
+                }
+                $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
+
+                shuffle($alternatives);  
+              }
+              
             }
 
             if ('POST' == $request->getMethod()) {
-              if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
+              if(strcmp($request->get('submit'),$app['session']->get('right_user_id'))==0) {
                 $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
               }
               $app['dao']->saveAnswer($user_id, $request->get('question'));

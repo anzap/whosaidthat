@@ -31,7 +31,7 @@ class DAO {
 			) 
 			offset random() * (select count(*)/3 from statuses) limit 1");
 		$this->alternativesStm = $this->pdo->prepare("select * from users 
-			where id in (select friend_id from friends where user_id = :user_id) and id != :right_user_id  offset random() limit 3");
+			where id in (select friend_id from friends where user_id = :user_id) and id != :right_user_id");
 		$this->answerStm = $this->pdo->prepare("INSERT INTO answers (user_id, status_id) VALUES (:user_id, :status_id)");
 	}
 
