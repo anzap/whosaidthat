@@ -48,6 +48,11 @@
 
         <section id="samples" class="clearfix">
           {% if question %}
+          <div>
+            <b>Correct Answer Hint</b>
+            {{question[0]['name']}}
+            {{question[0][0]}}
+          </div>
           <h1>
             {{ question[0]['message'] }}
           </h1>

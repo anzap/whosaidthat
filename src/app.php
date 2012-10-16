@@ -113,7 +113,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
               }
               $app['dao']->saveAnswer($user_id, $request->get('question'));
             }
-            
+
             return $app['twig']->render('index.html.twig', 
                 array("app_name" => $app_name, "appInfo" => new AppInfo(), 
                     "basic" => $basic, "utils" => new Utils(), "question" => $question,
