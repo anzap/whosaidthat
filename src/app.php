@@ -89,8 +89,11 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
             if(!$app['session']->has('correct_answers')) {
               $app['session']->set('correct_answers', 0);
             }
-            $user_id = $user->getId();
-            if(isset($user_id)) {
+            
+            if(isset($user)) {
+              $basic['points']= 0;
+            
+              $user_id = $user->getId();
               $question = $app['dao']->getNextQuestion($user_id);
               $alternatives = array();
 
@@ -109,6 +112,8 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
 
                 shuffle($alternatives);  
               }
+
+              $basic['points']= $user->getPoints();
               
             }
 
@@ -132,8 +137,6 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
             }
 
             $app['session']->set('request_time', time());
-
-            $basic['points']= $user->getPoints();
 
             return $app['twig']->render('index.html.twig', 
                 array("app_name" => $app_name, "appInfo" => new AppInfo(), 
