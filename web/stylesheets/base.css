@@ -291,3 +291,10 @@ header .tagline {
 .clearfix {
   zoom: 1;
 }
+
+/* =progress bar
+--------------------------------------------- */
+.pbar .ui-progressbar-value {display:block !important}
+.pbar {overflow: hidden}
+.percent {position:relative;text-align: center;font-size: 150%;}
+/* ------------------------------------------ */

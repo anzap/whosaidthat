@@ -32,6 +32,8 @@ $app['dao'] = $app->share(function () use ($app) {
     return new DAO($app['pdo']);
 });
 
+$answer_time = time();
+
 
 $facebook = new Facebook(array(
             'appId' => AppInfo::appID(),
@@ -49,9 +51,11 @@ if ($user_id) {
     throw $e;
   }
 
-  $user = new User(Utils::idx($basic, 'id'), Utils::idx($basic, 'name'));
-
-  $app['dao']->createUser($user);
+  $user = $app['dao']->findUser(Utils::idx($basic, 'id'));
+  if(!$user) {
+    $user = new User(Utils::idx($basic, 'id'), Utils::idx($basic, 'name'));
+    $app['dao']->createUser($user);
+  }
 
   $friends = Utils::idx($facebook->api('/me/friends'), 'data', array());
 
@@ -81,10 +85,11 @@ $app_info = $facebook->api('/' . AppInfo::appID());
 $app_name = Utils::idx($app_info, 'name', '');
 
 
-$app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_id) {
+$app->match('/', function(Request $request) use ($app, $app_name, $basic, $user, $answer_time) {
             if(!$app['session']->has('correct_answers')) {
               $app['session']->set('correct_answers', 0);
             }
+            $user_id = $user->getId();
             if(isset($user_id)) {
               $question = $app['dao']->getNextQuestion($user_id);
               $alternatives = array();
@@ -108,11 +113,27 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user_
             }
 
             if ('POST' == $request->getMethod()) {
-              if(strcmp($request->get('submit'),$app['session']->get('right_user_id'))==0) {
+              // if the user made the right choice
+              if(strcmp($request->get('submitBtn'),$app['session']->get('right_user_id'))==0) {
                 $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
+
+                $totalAvailableTime = 15; // TODO: this should come from configuration depending on selected level
+                $bonusFactor = 80; // TODO: this should come from configuration depending on selected level
+                $timeToAnswer = ($answer_time - $app['session']->get('request_time'));
+                $timeRemaining = $request->get('time_remaining');
+                $serverTimeRemaining = $totalAvailableTime - $timeToAnswer;
+                //If the player replied before the timeout and the server time is not too far off (no player cheating)
+                if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
+                  $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
+                  $app['dao']->updateUserPoints($user);
+                }
               }
               $app['dao']->saveAnswer($user_id, $request->get('question'));
             }
+
+            $app['session']->set('request_time', time());
+
+            $basic['points']= $user->getPoints();
 
             return $app['twig']->render('index.html.twig', 
                 array("app_name" => $app_name, "appInfo" => new AppInfo(), 

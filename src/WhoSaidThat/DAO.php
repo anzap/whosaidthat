@@ -10,6 +10,7 @@ use \PDO;
 class DAO {
 	private $pdo;
 	private $userStm;
+	private $updateUserPointsStm;
 	private $friendStm;
 	private $statusStm;
 	private $questionStm;
@@ -18,7 +19,9 @@ class DAO {
 
 	public function __construct(PDO $pdo) {
 		$this->pdo = $pdo;
+		$this->findUserStm = $this->pdo->prepare("SELECT * FROM users where id = :id");
 		$this->userStm = $this->pdo->prepare("INSERT INTO users (id, name) VALUES (:id, :name)");
+		$this->updateUserPointsStm = $this->pdo->prepare("UPDATE users SET points = :points WHERE id = :id");
 		$this->friendStm = $this->pdo->prepare("INSERT INTO friends (user_id, friend_id) VALUES (:user_id, :friend_id)");
 		$this->statusStm = $this->pdo->prepare("INSERT INTO statuses (id, message, user_id) VALUES (:id, :message, :user_id)");
 		$this->questionStm = $this->pdo->prepare("select * from statuses st
@@ -35,12 +38,27 @@ class DAO {
 		$this->answerStm = $this->pdo->prepare("INSERT INTO answers (user_id, status_id) VALUES (:user_id, :status_id)");
 	}
 
+	public function findUser($id) {
+		$this->findUserStm->bindParam(':id', $id);
+		$this->findUserStm->execute();
+		$result = $this->findUserStm->fetch();
+		return new User($result['id'], $result['name'], $result['points']);
+	}	
+
 	public function createUser(User $user) {
 		$id = $user->getId();
 		$this->userStm->bindParam(':id', $id);
 		$name = $user->getName();
 		$this->userStm->bindParam(':name', $name);
 		$this->userStm->execute();
+	}
+
+	public function updateUserPoints(User $user) {
+		$id = $user->getId();
+		$points = $user->getPoints();
+		$this->updateUserPointsStm->bindParam(':id', $id);
+		$this->updateUserPointsStm->bindParam(':points', $points);
+		$this->updateUserPointsStm->execute();
 	}
 
 	public function createFriend(Friend $friend) {

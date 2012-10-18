@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
 	id varchar(40) PRIMARY KEY,
-	name varchar(255) NOT NULL	
+	name varchar(255) NOT NULL,
+	points numeric(10,2) NOT NULL DEFAULT 0	
 );
 
 CREATE TABLE IF NOT EXISTS statuses (

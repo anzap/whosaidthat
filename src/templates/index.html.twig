@@ -41,7 +41,8 @@
           <div>
             <h1>Welcome, <strong>{{ utils.idx(basic, 'name') }}</strong></h1>
             <p class="tagline">
-              Correct answers: {{ app.session.get('correct_answers') }}
+              Correct answers: {{ app.session.get('correct_answers') }}<br/>
+              Total User Points: {{ utils.idx(basic, 'points') }}<br/>
             </p>
           </div>
         </header>
@@ -57,14 +58,21 @@
             {{ question[0]['message'] }}
           </h1>
 
-          <form method="post" action="/">
+          <form id="answer_form" method="post" action="/">
+
+            <div id="answer_timeout">
+                <div class="percent"></div>
+                <div class="pbar"></div>
+            </div>
+
             <input type="hidden" name="question" value="{{ question[0][0] }}"/>
+            <input type="hidden" name="time_remaining" id="time_remaining" value="0"/>
             <div id="answers">
               <h3>Alternatives</h3>
               <ul class="friends">
               {% for alternative in alternatives %}
                 <li>
-                  <button type="submit" name="submit" formmethod="post" formaction="/" value="{{ alternative['id'] }}">
+                  <button type="submit" name="submitBtn" formmethod="post" formaction="/" value="{{ alternative['id'] }}">
                     <img src="https://graph.facebook.com/{{ alternative['id'] }}/picture?type=square" alt="{{ alternative.name }}">
                     <span>{{ alternative.name }}</span>
                   </button> 
