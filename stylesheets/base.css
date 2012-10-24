@@ -205,6 +205,7 @@ header .tagline {
 #samples ul {
   padding: 0 4px;
 }
+
 /* ------------------------------------------ */
 
 /* =guides
@@ -338,8 +339,6 @@ header .tagline {
   overflow: hidden;
   text-indent: -9999px;
 }
-
-
 /* ------------------------------------------ */
 
 /* =clearfix

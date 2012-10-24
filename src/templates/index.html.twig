@@ -35,11 +35,15 @@
       }(document, 'script', 'facebook-jssdk'));
 
       $(document).ready(function(){
-          $('#answer_timeout').anim_progressbar({start: 15});
+          $('#answer_timeout').anim_progressbar({start: {{ availableTime }}});
 
-          $("#answer_form").submit(function(e) {
-              clearInterval(vInterval);
-              $("#time_remaining").val(timeOut+1);
+          $(':button').click(function() {
+            $("#answer").val($(this).val());
+            clearInterval(vInterval);
+            if(timeOut != 0 ) {
+              $("#time_remaining").val(timeOut+1);  
+            }
+            $('#answer_form').submit();
           });
       });
     </script>
@@ -76,6 +80,7 @@
 
             <input type="hidden" name="question" value="{{ question[0][0] }}"/>
             <input type="hidden" name="time_remaining" id="time_remaining" value="0"/>
+            <input type="hidden" name="answer" id="answer" value=""/>
             <div id="answers">
               <h3>Alternatives</h3>
               <ul class="friends">

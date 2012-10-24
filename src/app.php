@@ -16,6 +16,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/templates',
 ));
 $app->register(new Silex\Provider\SessionServiceProvider());
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 $app['pdo.dsn'] = "pgsql:host=".AppInfo::getDbHost().";dbname=".AppInfo::getDbName();
 
@@ -86,24 +87,26 @@ if ($user_id) {
 $app_info = $facebook->api('/' . AppInfo::appID());
 $app_name = Utils::idx($app_info, 'name', '');
 
-$app->post('/level', function(Request $request) use ($app) {
-  if($request->has('level')) {
+$app->post('/level', function(Request $request) use ($app, $user) {
+  if($request->get('level')) {
     $app['session']->set('level', new Level($request->get('level')));
+    return $app->redirect('/');
   } else {
     throw new LevelSelectionException("No level was selected");
   }
-});
-
+})->bind('level');;
 
 $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user, $answer_time) {
-    if(!$app['session']->has('level')) {
-      return $app->redirect('/level');
-    }
     if(!$app['session']->has('correct_answers')) {
       $app['session']->set('correct_answers', 0);
     }
     
     if(isset($user)) {
+      if(!$app['session']->has('level')) {
+        return $app['twig']->render('levels.html.twig', array("app_name" => $app_name, "appInfo" => new AppInfo(), 
+            "basic" => $basic, "utils" => new Utils()));
+      }
+    
       $basic['points']= 0;
     
       $user_id = $user->getId();
@@ -134,8 +137,9 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
       if($app['session']->has('level')) {
         $level = $app['session']->get('level');
       }
+
       // if the user made the right choice
-      if(strcmp($request->get('submitBtn'),$app['session']->get('right_user_id'))==0) {
+      if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
         $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
 
         $totalAvailableTime = $level->getTotalAvailableTime();
@@ -157,8 +161,9 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
     return $app['twig']->render('index.html.twig', 
         array("app_name" => $app_name, "appInfo" => new AppInfo(), 
             "basic" => $basic, "utils" => new Utils(), "question" => $question,
-            "alternatives" => $alternatives));
-});
+            "alternatives" => $alternatives, "availableTime" => $level ? $level->getTotalAvailableTime() : 0));
+})->bind('homepage');;
+
 
 $app->error(function(\Exception $e, $code) use($app) {
   if ($app['debug']) {

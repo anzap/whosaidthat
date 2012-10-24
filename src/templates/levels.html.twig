@@ -3,20 +3,24 @@
 {% block content %}
   <script type="text/javascript">
       $(document).ready(function(){
-          $("input .button").click(function(){
-            $("#level").val($this.val());
+          $(":button").click(function() {
+            $("#level").val($(this).val());
+            $('#level_form').submit();
           });
       });
   </script>
 
   <div>
       <header class="clearfix">
-        <form id="level_form" method="POST" action="/level">
+        <h1>Select your game level</h1>
+      </header>
+      <section id="samples" class="clearfix levels">
+        <form id="level_form" method="POST" action="{{ app.url_generator.generate('level') }}">
           <input id="level" type="hidden" name="level" value=""/>
           <input class="button orange" type="button" value="Novice">
           <input class="button orange" type="button" value="Normal">
           <input class="button orange" type="button" value="Expert">
         </form>
-      </header>
+      </section>
   </div>
 {% endblock %}

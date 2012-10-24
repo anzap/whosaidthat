@@ -8,23 +8,24 @@ class Level {
     private $bonusFactor; 
 
 	public function __construct($level) {
-		if($level) {
-			switch($level) {
-				case 'Novice':
-				$totalAvailableTime = 15;
-				$bonusFactor = 80;
+		switch($level) {
+			case 'Novice':
+				$this->totalAvailableTime = 15;
+				$this->bonusFactor = 80;
 				break;
-				case 'Normal':
-				$totalAvailableTime = 10;
-				$bonusFactor = 100;
+
+			case 'Normal':
+				$this->totalAvailableTime = 10;
+				$this->bonusFactor = 100;
 				break;
-				case 'Expert':
-				$totalAvailableTime = 5;
-				$bonusFactor = 150;
+
+			case 'Expert':
+				$this->totalAvailableTime = 5;
+				$this->bonusFactor = 150;
 				break;
-				default:
+
+			default:
 				throw new LevelSelectionException("The selected level is not recognized from the app");
-			}
 		}
 	}
 
@@ -34,6 +35,10 @@ class Level {
 
 	public function getTotalAvailableTime() {
 		return $this->totalAvailableTime;
+	}
+
+	public function __toString() {
+		return $this->totalAvailableTime.' '.$this->bonusFactor;
 	}
 	
 }
