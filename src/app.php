@@ -152,6 +152,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
         if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
           $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
           $app['dao']->updateUserPoints($user);
+          $basic['points']= $user->getPoints();
         }
       }
       $app['dao']->saveAnswer($user_id, $request->get('question'));
