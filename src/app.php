@@ -100,6 +100,9 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
     if(!$app['session']->has('correct_answers')) {
       $app['session']->set('correct_answers', 0);
     }
+    if($app['session']->has('level')) {
+      $level = $app['session']->get('level');
+    }
     
     if(isset($user)) {
       if(!$app['session']->has('level')) {
@@ -134,12 +137,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
     }
 
     if ('POST' == $request->getMethod()) {
-      if($app['session']->has('level')) {
-        $level = $app['session']->get('level');
-      }
-
       // if the user made the right choice
-      echo "answer: ".$request->get('answer')." ".$app['session']->get('right_user_id');
       if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
         $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
 
