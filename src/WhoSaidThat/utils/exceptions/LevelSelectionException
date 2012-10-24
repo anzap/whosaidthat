@@ -1,0 +1,7 @@
+<?php
+
+namespace WhoSaidThat\utils\exceptions;
+
+class LevelSelectionException extends \Exception {
+	
+}

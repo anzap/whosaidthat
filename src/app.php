@@ -3,10 +3,12 @@
 use WhoSaidThat\AppInfo;
 use WhoSaidThat\Utils;
 use WhoSaidThat\DAO;
+use WhoSaidThat\Level;
 use WhoSaidThat\domain\User;
 use WhoSaidThat\domain\Friend;
 use WhoSaidThat\domain\Status;
 use Symfony\Component\HttpFoundation\Request;
+use WhoSaidThat\utils\exceptions\LevelSelectionException;
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -84,73 +86,85 @@ if ($user_id) {
 $app_info = $facebook->api('/' . AppInfo::appID());
 $app_name = Utils::idx($app_info, 'name', '');
 
+$app->post('/level', function(Request $request) use ($app) {
+  if($request->has('level')) {
+    $app['session']->set('level', new Level($request->get('level')));
+  } else {
+    throw new LevelSelectionException("No level was selected");
+  }
+});
+
 
 $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user, $answer_time) {
-            if(!$app['session']->has('correct_answers')) {
-              $app['session']->set('correct_answers', 0);
-            }
-            
-            if(isset($user)) {
-              $basic['points']= 0;
-            
-              $user_id = $user->getId();
-              $question = $app['dao']->getNextQuestion($user_id);
-              $alternatives = array();
+    if(!$app['session']->has('level')) {
+      return $app->redirect('/level');
+    }
+    if(!$app['session']->has('correct_answers')) {
+      $app['session']->set('correct_answers', 0);
+    }
+    
+    if(isset($user)) {
+      $basic['points']= 0;
+    
+      $user_id = $user->getId();
+      $question = $app['dao']->getNextQuestion($user_id);
+      $alternatives = array();
 
-              if($question) {
-                $app['session']->set('right_user_id', $question[0]['user_id']);
-                $daoAlternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
+      if($question) {
+        $app['session']->set('right_user_id', $question[0]['user_id']);
+        $daoAlternatives = $app['dao']->getAlternatives($user_id, $question[0]['user_id']);
 
-                $randIndex = count($daoAlternatives) > 3 ? 3 : count($daoAlternatives);
+        $randIndex = count($daoAlternatives) > 3 ? 3 : count($daoAlternatives);
 
-                $rand_keys = array_rand($daoAlternatives, $randIndex);
+        $rand_keys = array_rand($daoAlternatives, $randIndex);
 
-                for($i = $randIndex-1; $i >= 0; $i--) {
-                  $alternatives[] = $daoAlternatives[$rand_keys[$i]];  
-                }
-                $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
+        for($i = $randIndex-1; $i >= 0; $i--) {
+          $alternatives[] = $daoAlternatives[$rand_keys[$i]];  
+        }
+        $alternatives[] = array('id'=>$question[0]['user_id'], 'name'=>$question[0]['name']);
 
-                shuffle($alternatives);  
-              }
+        shuffle($alternatives);  
+      }
 
-              $basic['points']= $user->getPoints();
-              
-            }
+      $basic['points']= $user->getPoints();
+      
+    }
 
-            if ('POST' == $request->getMethod()) {
-              // if the user made the right choice
-              if(strcmp($request->get('submitBtn'),$app['session']->get('right_user_id'))==0) {
-                $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
+    if ('POST' == $request->getMethod()) {
+      if($app['session']->has('level')) {
+        $level = $app['session']->get('level');
+      }
+      // if the user made the right choice
+      if(strcmp($request->get('submitBtn'),$app['session']->get('right_user_id'))==0) {
+        $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
 
-                $totalAvailableTime = 15; // TODO: this should come from configuration depending on selected level
-                $bonusFactor = 80; // TODO: this should come from configuration depending on selected level
-                $timeToAnswer = ($answer_time - $app['session']->get('request_time'));
-                $timeRemaining = $request->get('time_remaining');
-                $serverTimeRemaining = $totalAvailableTime - $timeToAnswer;
-                //If the player replied before the timeout and the server time is not too far off (no player cheating)
-                if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
-                  $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
-                  $app['dao']->updateUserPoints($user);
-                }
-              }
-              $app['dao']->saveAnswer($user_id, $request->get('question'));
-            }
+        $totalAvailableTime = $level->getTotalAvailableTime();
+        $bonusFactor = $level->getBonusFactor();
+        $timeToAnswer = ($answer_time - $app['session']->get('request_time'));
+        $timeRemaining = $request->get('time_remaining');
+        $serverTimeRemaining = $totalAvailableTime - $timeToAnswer;
+        //If the player replied before the timeout and the server time is not too far off (no player cheating)
+        if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
+          $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
+          $app['dao']->updateUserPoints($user);
+        }
+      }
+      $app['dao']->saveAnswer($user_id, $request->get('question'));
+    }
 
-            $app['session']->set('request_time', time());
+    $app['session']->set('request_time', time());
 
-            return $app['twig']->render('index.html.twig', 
-                array("app_name" => $app_name, "appInfo" => new AppInfo(), 
-                    "basic" => $basic, "utils" => new Utils(), "question" => $question,
-                    "alternatives" => $alternatives));
-        });
+    return $app['twig']->render('index.html.twig', 
+        array("app_name" => $app_name, "appInfo" => new AppInfo(), 
+            "basic" => $basic, "utils" => new Utils(), "question" => $question,
+            "alternatives" => $alternatives));
+});
 
 $app->error(function(\Exception $e, $code) use($app) {
-    if ($app['debug']) {
-        return;
-    }
-    if (!in_array($app['request']->server->get('REMOTE_ADDR'), array('127.0.0.1', '::1'))) {
-        return $app->redirect('/');
-    }
+  if ($app['debug']) {
+      return;
+  }
+  return $app['twig']->render('error.html.twig', array('message' => $e->getMessage()));
 });
 
 return $app;

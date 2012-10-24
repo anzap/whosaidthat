@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+  <script type="text/javascript">
+      $(document).ready(function(){
+          $("input .button").click(function(){
+            $("#level").val($this.val());
+          });
+      });
+  </script>
+
+  <div>
+      <header class="clearfix">
+        <h1>Oups Something Went Wrong</strong></h1>
+      </header>
+      <section id="samples" class="clearfix">
+        <h1>{{ message }}</h1>
+      </section>
+  </div>
+{% endblock %}

@@ -33,6 +33,15 @@
         js.src = "//connect.facebook.net/en_US/all.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+
+      $(document).ready(function(){
+          $('#answer_timeout').anim_progressbar({start: 15});
+
+          $("#answer_form").submit(function(e) {
+              clearInterval(vInterval);
+              $("#time_remaining").val(timeOut+1);
+          });
+      });
     </script>
     <div>
       {% if basic %}

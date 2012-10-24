@@ -30,16 +30,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery.ui.all.css"/>
         <script type="text/javascript" src="/js/script.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('#answer_timeout').anim_progressbar({start: 15});
-
-                $("#answer_form").submit(function(e) {
-                    clearInterval(vInterval);
-                    $("#time_remaining").val(timeOut+1);
-                });
-            });
-        </script>
     </head>
     <body>
         <div id="fb-root"></div>
