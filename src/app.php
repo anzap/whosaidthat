@@ -139,6 +139,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
       }
 
       // if the user made the right choice
+      echo "answer: ".$request->get('answer')." ".$app['session']->get('right_user_id');
       if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
         $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
 
@@ -161,7 +162,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
     return $app['twig']->render('index.html.twig', 
         array("app_name" => $app_name, "appInfo" => new AppInfo(), 
             "basic" => $basic, "utils" => new Utils(), "question" => $question,
-            "alternatives" => $alternatives, "availableTime" => $level ? $level->getTotalAvailableTime() : 0));
+            "alternatives" => $alternatives, "availableTime" => isset($level) ? $level->getTotalAvailableTime() : 0));
 })->bind('homepage');;
 
 
