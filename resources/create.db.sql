@@ -26,3 +26,5 @@ CREATE TABLE IF NOT EXISTS answers (
 	FOREIGN KEY(user_id) REFERENCES users(id),
 	FOREIGN KEY(status_id) REFERENCES statuses(id)
 );
+
+ALTER TABLE friends ADD CONSTRAINT unq_user_friend UNIQUE (user_id, friend_id);

@@ -114,7 +114,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
       $basic['points']= 0;
 
       if ('POST' == $request->getMethod()) {
-        echo("answer given: ".$request->get('answer')."<br/>");
+        echo("question: ".$request->get('question')." and answer given: ".$request->get('answer')."<br/>");
         // if the user made the right choice
         if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
           $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
