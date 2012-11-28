@@ -114,11 +114,11 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
       $basic['points']= 0;
 
       if ('POST' == $request->getMethod()) {
-        echo("answer given: ".$request->get('answer')."\n");
+        echo("answer given: ".$request->get('answer')."<br/>");
         // if the user made the right choice
         if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
           $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
-          echo("correct answer, correct answers count: ".$app['session']->get('correct_answers')."\n");
+          echo("correct answer, correct answers count: ".$app['session']->get('correct_answers')."<br/>");
 
           $totalAvailableTime = $level->getTotalAvailableTime();
           $bonusFactor = $level->getBonusFactor();
@@ -128,7 +128,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
           //If the player replied before the timeout and the server time is not too far off (no player cheating)
           if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
             $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
-            echo("user points after correct answer: ".$user->getPoints()."\n");
+            echo("user points after correct answer: ".$user->getPoints()."<br/>");
             $app['dao']->updateUserPoints($user);
             $basic['points']= $user->getPoints();
           }
