@@ -10,7 +10,6 @@ use WhoSaidThat\domain\Status;
 use Symfony\Component\HttpFoundation\Request;
 use WhoSaidThat\utils\exceptions\LevelSelectionException;
 
-echo("#####writing to stdout directly\n");
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -111,8 +110,31 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
         return $app['twig']->render('levels.html.twig', array("app_name" => $app_name, "appInfo" => new AppInfo(), 
             "basic" => $basic, "utils" => new Utils()));
       }
-    
+
       $basic['points']= 0;
+
+      if ('POST' == $request->getMethod()) {
+        echo("answer given: ".$request->get('answer')."\n");
+        // if the user made the right choice
+        if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
+          $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
+          echo("correct answer, correct answers count: ".$app['session']->get('correct_answers')."\n");
+
+          $totalAvailableTime = $level->getTotalAvailableTime();
+          $bonusFactor = $level->getBonusFactor();
+          $timeToAnswer = ($answer_time - $app['session']->get('request_time'));
+          $timeRemaining = $request->get('time_remaining');
+          $serverTimeRemaining = $totalAvailableTime - $timeToAnswer;
+          //If the player replied before the timeout and the server time is not too far off (no player cheating)
+          if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
+            $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
+            echo("user points after correct answer: ".$user->getPoints()."\n");
+            $app['dao']->updateUserPoints($user);
+            $basic['points']= $user->getPoints();
+          }
+        }
+        $app['dao']->saveAnswer($user_id, $request->get('question'));
+      }
     
       $user_id = $user->getId();
       $question = $app['dao']->getNextQuestion($user_id);
@@ -136,26 +158,6 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
 
       $basic['points']= $user->getPoints();
       
-    }
-
-    if ('POST' == $request->getMethod()) {
-      // if the user made the right choice
-      if(strcmp($request->get('answer'),$app['session']->get('right_user_id'))==0) {
-        $app['session']->set('correct_answers', $app['session']->get('correct_answers')+1);
-
-        $totalAvailableTime = $level->getTotalAvailableTime();
-        $bonusFactor = $level->getBonusFactor();
-        $timeToAnswer = ($answer_time - $app['session']->get('request_time'));
-        $timeRemaining = $request->get('time_remaining');
-        $serverTimeRemaining = $totalAvailableTime - $timeToAnswer;
-        //If the player replied before the timeout and the server time is not too far off (no player cheating)
-        if($timeRemaining != 0 && $serverTimeRemaining - $timeRemaining < 2) {
-          $user->setPoints($user->getPoints() +  number_format((float)($bonusFactor * $timeRemaining / $totalAvailableTime), 2, '.', ''));
-          $app['dao']->updateUserPoints($user);
-          $basic['points']= $user->getPoints();
-        }
-      }
-      $app['dao']->saveAnswer($user_id, $request->get('question'));
     }
 
     $app['session']->set('request_time', time());
