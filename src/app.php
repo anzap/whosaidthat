@@ -138,6 +138,7 @@ $app->match('/', function(Request $request) use ($app, $app_name, $basic, $user,
           $app['dao']->saveAnswer($user_id, $request->get('question'));
           $app['pdo']->commit();
         } catch (PDOException $e) {
+          echo $e;
           $app['pdo']->rollback();
         }
       }
