@@ -10,6 +10,8 @@ use WhoSaidThat\domain\Status;
 use Symfony\Component\HttpFoundation\Request;
 use WhoSaidThat\utils\exceptions\LevelSelectionException;
 
+fwrite(STDOUT, "#####writing to stdout directly\n");
+
 $app = new Silex\Application();
 $app['debug'] = true;
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
